@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:todo_list/models/task.dart';
 import 'package:todo_list/pages/home/home_page.dart';
+import 'blocs/bloc_exports.dart';
 
 void main() {
-  runApp(const MyApp());
+  BlocOverrides.runZoned(
+    () => runApp(const MyApp()),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -10,10 +14,14 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Todo List',
-      home: HomePage(),
+    return BlocProvider(
+      create: (context) =>
+          TasksBloc()..add(AddTask(task: Task(title: 'Task 1'))),
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Todo List',
+        home: HomePage(),
+      ),
     );
   }
 }
