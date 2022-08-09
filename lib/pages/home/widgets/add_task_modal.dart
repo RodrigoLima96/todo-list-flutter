@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:todo_list/blocs/bloc_exports.dart';
 import 'package:todo_list/models/task.dart';
+import 'package:uuid/uuid.dart';
 
 class AddTaskModal extends StatelessWidget {
   const AddTaskModal({
@@ -38,7 +39,10 @@ class AddTaskModal extends StatelessWidget {
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    var task = Task(title: titleController.text);
+                    var task = Task(
+                      id: const Uuid().v1(),
+                      title: titleController.text,
+                    );
                     context.read<TasksBloc>().add(AddTask(task: task));
                     Navigator.pop(context);
                   },
