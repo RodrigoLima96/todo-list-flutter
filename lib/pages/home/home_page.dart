@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:todo_list/models/task.dart';
+import 'package:todo_list/pages/drawer/app_drawer.dart';
 import 'package:todo_list/pages/home/widgets/add_task_modal.dart';
 import 'package:todo_list/widgets/tasks_list.dart';
-
 import '../../blocs/bloc_exports.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
+  static const id = 'tasks_page';
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -39,11 +40,12 @@ class _HomePageState extends State<HomePage> {
               ),
             ],
           ),
+          drawer: const AppDrawer(),
           body: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const Center(
-                child: Chip(label: Text('tasks:')),
+              Center(
+                child: Chip(label: Text('${state.allTasks.length} Tasks')),
               ),
               TasksList(tasks: tasksList),
             ],

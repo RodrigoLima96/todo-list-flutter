@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:todo_list/pages/home/home_page.dart';
+import 'package:todo_list/router/app_router.dart';
 import 'blocs/bloc_exports.dart';
 
 void main() async {
@@ -11,22 +12,27 @@ void main() async {
   );
 
   HydratedBlocOverrides.runZoned(
-    () => runApp(const MyApp()),
+    () => runApp(MyApp(
+      appRouter: AppRouter(),
+    )),
     storage: storage,
   );
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  final AppRouter appRouter;
+
+  const MyApp({Key? key, required this.appRouter}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => TasksBloc(),
-      child: const MaterialApp(
+      child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Todo List',
-        home: HomePage(),
+        home: const HomePage(),
+        onGenerateRoute: appRouter.onGenerateRoute,
       ),
     );
   }
