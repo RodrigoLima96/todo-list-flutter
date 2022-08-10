@@ -24,7 +24,8 @@ class AppDrawer extends StatelessWidget {
             BlocBuilder<TasksBloc, TasksState>(
               builder: (context, state) {
                 return GestureDetector(
-                  onTap: () => Navigator.of(context).pushNamed(HomePage.id),
+                  onTap: () =>
+                      Navigator.of(context).pushReplacementNamed(HomePage.id),
                   child: ListTile(
                     leading: const Icon(Icons.folder_special_sharp),
                     title: const Text('My Tasks'),
@@ -37,14 +38,25 @@ class AppDrawer extends StatelessWidget {
             BlocBuilder<TasksBloc, TasksState>(
               builder: (context, state) {
                 return GestureDetector(
-                  onTap: () =>
-                      Navigator.of(context).pushNamed(RecycleBinPage.id),
+                  onTap: () => Navigator.of(context)
+                      .pushReplacementNamed(RecycleBinPage.id),
                   child: ListTile(
                     leading: const Icon(Icons.delete),
                     title: const Text('Bin'),
                     trailing: Text('${state.removedTasks.length}'),
                   ),
                 );
+              },
+            ),
+            BlocBuilder<SwitchBloc, SwitchState>(
+              builder: (context, state) {
+                return Switch(
+                    value: state.switchValue,
+                    onChanged: (newValue) {
+                      newValue
+                          ? context.read<SwitchBloc>().add(SwitchOnEvent())
+                          : context.read<SwitchBloc>().add(SwitchOffEvent());
+                    });
               },
             ),
           ],

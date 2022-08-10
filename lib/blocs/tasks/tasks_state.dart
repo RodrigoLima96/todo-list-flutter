@@ -10,7 +10,7 @@ class TasksState extends Equatable {
   });
 
   @override
-  List<Object> get props => [allTasks];
+  List<Object> get props => [allTasks, removedTasks];
 
   Map<String, dynamic> toMap() {
     return {

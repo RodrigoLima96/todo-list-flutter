@@ -16,12 +16,6 @@ class RecycleBinPage extends StatelessWidget {
           appBar: AppBar(
             title: const Text('Recycle Bin'),
             centerTitle: true,
-            actions: [
-              IconButton(
-                onPressed: () {},
-                icon: const Icon(Icons.add),
-              ),
-            ],
           ),
           drawer: const AppDrawer(),
           body: Column(
