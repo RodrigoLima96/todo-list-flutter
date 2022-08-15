@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:todo_list/blocs/bloc_exports.dart';
-import 'package:todo_list/pages/home/home_page.dart';
 import 'package:todo_list/pages/recycle_bin/recycle_bin_page.dart';
+import 'package:todo_list/pages/tabs_page/tabs_page.dart';
 
 class AppDrawer extends StatelessWidget {
   const AppDrawer({Key? key}) : super(key: key);
@@ -25,11 +25,12 @@ class AppDrawer extends StatelessWidget {
               builder: (context, state) {
                 return GestureDetector(
                   onTap: () =>
-                      Navigator.of(context).pushReplacementNamed(HomePage.id),
+                      Navigator.of(context).pushReplacementNamed(TabsPage.id),
                   child: ListTile(
                     leading: const Icon(Icons.folder_special_sharp),
                     title: const Text('My Tasks'),
-                    trailing: Text('${state.allTasks.length}'),
+                    trailing: Text(
+                        '${state.pendingTasks.length} | ${state.completedTasks.length}'),
                   ),
                 );
               },

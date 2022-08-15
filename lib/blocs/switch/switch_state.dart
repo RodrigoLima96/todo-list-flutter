@@ -4,9 +4,6 @@ class SwitchState extends Equatable {
   final bool switchValue;
   const SwitchState({required this.switchValue});
 
-  @override
-  List<Object> get props => [switchValue];
-
   Map<String, dynamic> toMap() {
     return {
       'switchValue': switchValue,
@@ -18,6 +15,9 @@ class SwitchState extends Equatable {
       switchValue: map['switchValue'] ?? false,
     );
   }
+
+  @override
+  List<Object> get props => [switchValue];
 }
 
 class SwitchInitial extends SwitchState {
