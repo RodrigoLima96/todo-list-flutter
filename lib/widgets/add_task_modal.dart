@@ -11,6 +11,7 @@ class AddTaskModal extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     TextEditingController titleController = TextEditingController();
+    TextEditingController descriptionController = TextEditingController();
 
     return Container(
       padding: EdgeInsets.only(
@@ -30,6 +31,17 @@ class AddTaskModal extends StatelessWidget {
                 border: OutlineInputBorder(),
               ),
             ),
+            const SizedBox(height: 10),
+            TextField(
+              autofocus: true,
+              controller: descriptionController,
+              minLines: 3,
+              maxLines: 5,
+              decoration: const InputDecoration(
+                label: Text('description'),
+                border: OutlineInputBorder(),
+              ),
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
@@ -42,6 +54,7 @@ class AddTaskModal extends StatelessWidget {
                     var task = Task(
                       id: const Uuid().v1(),
                       title: titleController.text,
+                      description: descriptionController.text,
                     );
                     context.read<TasksBloc>().add(AddTask(task: task));
                     Navigator.pop(context);

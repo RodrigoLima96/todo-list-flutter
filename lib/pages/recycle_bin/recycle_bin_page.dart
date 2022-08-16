@@ -24,7 +24,7 @@ class RecycleBinPage extends StatelessWidget {
               Center(
                 child: Chip(label: Text('${state.removedTasks.length} Tasks')),
               ),
-              TasksList(tasks: state.removedTasks),
+              TasksList(tasksList: state.removedTasks),
             ],
           ),
         );

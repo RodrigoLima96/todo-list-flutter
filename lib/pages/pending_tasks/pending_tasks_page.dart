@@ -23,7 +23,7 @@ class PendingTasksPage extends StatelessWidget {
                 ),
               ),
             ),
-            TasksList(tasks: tasksList),
+            TasksList(tasksList: tasksList),
           ],
         );
       },
