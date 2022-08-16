@@ -10,6 +10,7 @@ class TasksBloc extends HydratedBloc<TasksEvent, TasksState> {
     on<UpdateTask>(_onUpdateTask);
     on<DeleteTask>(_onDeleteTask);
     on<RemoveTask>(_onRemoveTask);
+    on<MarkFavoriteOrUnfavoriteTask>(_onMarkFavoriteOrUnfavoriteTask);
   }
 
   void _onAddTask(AddTask event, Emitter<TasksState> emit) {
@@ -76,6 +77,53 @@ class TasksBloc extends HydratedBloc<TasksEvent, TasksState> {
         removedTasks: List.from(state.removedTasks)..remove(event.task),
       ),
     );
+  }
+
+  void _onMarkFavoriteOrUnfavoriteTask(
+    MarkFavoriteOrUnfavoriteTask event,
+    Emitter<TasksState> emit,
+  ) {
+    final state = this.state;
+    List<Task> pendingTasks = state.pendingTasks;
+    List<Task> completedTasks = state.completedTasks;
+    List<Task> favoriteTasks = state.favoriteTasks;
+
+    if (event.task.isDone == false) {
+      var taskIndex = pendingTasks.indexOf(event.task);
+
+      if (event.task.isFavorite == false) {
+        pendingTasks = List.from(pendingTasks)
+          ..remove(event.task)
+          ..insert(taskIndex, event.task.copyWith(isFavorite: true));
+        favoriteTasks.insert(0, event.task.copyWith(isFavorite: true));
+      } else {
+        pendingTasks = List.from(pendingTasks)
+          ..remove(event.task)
+          ..insert(taskIndex, event.task.copyWith(isFavorite: false));
+        favoriteTasks.remove(event.task);
+      }
+    } else {
+      var taskIndex = completedTasks.indexOf(event.task);
+
+      if (event.task.isFavorite == false) {
+        completedTasks = List.from(completedTasks)
+          ..remove(event.task)
+          ..insert(taskIndex, event.task.copyWith(isFavorite: true));
+        favoriteTasks.insert(0, event.task.copyWith(isFavorite: true));
+      } else {
+        completedTasks = List.from(completedTasks)
+          ..remove(event.task)
+          ..insert(taskIndex, event.task.copyWith(isFavorite: false));
+        favoriteTasks.remove(event.task);
+      }
+    }
+
+    emit(TasksState(
+      pendingTasks: pendingTasks,
+      completedTasks: completedTasks,
+      favoriteTasks: favoriteTasks,
+      removedTasks: state.removedTasks,
+    ));
   }
 
   @override
