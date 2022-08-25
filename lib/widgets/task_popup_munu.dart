@@ -17,40 +17,53 @@ class TaskPopupMenu extends StatelessWidget {
   Widget build(BuildContext context) {
     return PopupMenuButton(
       itemBuilder: task.isDeleted == false
-          ? (context) => [
-                PopupMenuItem(
-                  child: TextButton.icon(
-                    onPressed: null,
-                    icon: const Icon(Icons.edit),
-                    label: const Text('Edit'),
-                  ),
-                  onTap: () {},
-                ),
-                PopupMenuItem(
-                  child: TextButton.icon(
-                    onPressed: null,
-                    icon: task.isFavorite == false
-                        ? const Icon(Icons.bookmark_add_outlined)
-                        : const Icon(Icons.bookmark_remove),
-                    label: task.isFavorite == false
-                        ? const Text('Add to Bookmarks')
-                        : const Text('Remove from Bookmarks'),
-                  ),
-                  onTap: () {
-                    likerOrDislike();
-                  },
-                ),
-                PopupMenuItem(
-                  child: TextButton.icon(
-                    onPressed: null,
-                    icon: const Icon(Icons.delete),
-                    label: const Text('Delete'),
-                  ),
-                  onTap: () {
-                    cancelOrDeleteCallback();
-                  },
-                ),
-              ]
+          ? task.isDone == false
+              ? (context) => [
+                    PopupMenuItem(
+                      child: TextButton.icon(
+                        onPressed: null,
+                        icon: const Icon(Icons.edit),
+                        label: const Text('Edit'),
+                      ),
+                      onTap: () {},
+                    ),
+                    PopupMenuItem(
+                      child: TextButton.icon(
+                        onPressed: null,
+                        icon: task.isFavorite == false
+                            ? const Icon(Icons.bookmark_add_outlined)
+                            : const Icon(Icons.bookmark_remove),
+                        label: task.isFavorite == false
+                            ? const Text('Add to Bookmarks')
+                            : const Text('Remove from Bookmarks'),
+                      ),
+                      onTap: () {
+                        likerOrDislike();
+                      },
+                    ),
+                    PopupMenuItem(
+                      child: TextButton.icon(
+                        onPressed: null,
+                        icon: const Icon(Icons.delete),
+                        label: const Text('Delete'),
+                      ),
+                      onTap: () {
+                        cancelOrDeleteCallback();
+                      },
+                    ),
+                  ]
+              : (context) => [
+                    PopupMenuItem(
+                      child: TextButton.icon(
+                        onPressed: null,
+                        icon: const Icon(Icons.delete),
+                        label: const Text('Delete'),
+                      ),
+                      onTap: () {
+                        cancelOrDeleteCallback();
+                      },
+                    ),
+                  ]
           : (context) => [
                 PopupMenuItem(
                   child: TextButton.icon(
