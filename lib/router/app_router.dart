@@ -8,7 +8,7 @@ class AppRouter {
       case RecycleBinPage.id:
         return MaterialPageRoute(builder: (_) => const RecycleBinPage());
       case TabsPage.id:
-        return MaterialPageRoute(builder: (_) => TabsPage());
+        return MaterialPageRoute(builder: (_) => const TabsPage());
       default:
         return null;
     }

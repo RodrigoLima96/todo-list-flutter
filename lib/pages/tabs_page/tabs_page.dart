@@ -6,7 +6,7 @@ import 'package:todo_list/pages/pending_tasks/pending_tasks_page.dart';
 import 'package:todo_list/widgets/add_task_modal.dart';
 
 class TabsPage extends StatefulWidget {
-  TabsPage({Key? key}) : super(key: key);
+  const TabsPage({Key? key}) : super(key: key);
 
   static const id = 'tabs_page';
 

@@ -40,7 +40,7 @@ class MyApp extends StatelessWidget {
             theme: state.switchValue
                 ? AppThemes.appThemeData[AppTheme.darkTheme]
                 : AppThemes.appThemeData[AppTheme.lightTheme],
-            home: TabsPage(),
+            home: const TabsPage(),
             onGenerateRoute: appRouter.onGenerateRoute,
           );
         },
