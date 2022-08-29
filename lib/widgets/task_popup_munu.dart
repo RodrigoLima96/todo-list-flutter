@@ -3,14 +3,16 @@ import 'package:todo_list/models/task.dart';
 
 class TaskPopupMenu extends StatelessWidget {
   final Task task;
-  final VoidCallback cancelOrDeleteCallback;
+  final VoidCallback cancelOrDelete;
   final VoidCallback likerOrDislike;
+  final VoidCallback restoreTask;
 
   const TaskPopupMenu({
     Key? key,
-    required this.cancelOrDeleteCallback,
+    required this.cancelOrDelete,
     required this.likerOrDislike,
     required this.task,
+    required this.restoreTask,
   }) : super(key: key);
 
   @override
@@ -22,20 +24,12 @@ class TaskPopupMenu extends StatelessWidget {
                     PopupMenuItem(
                       child: TextButton.icon(
                         onPressed: null,
-                        icon: const Icon(Icons.edit),
-                        label: const Text('Edit'),
-                      ),
-                      onTap: () {},
-                    ),
-                    PopupMenuItem(
-                      child: TextButton.icon(
-                        onPressed: null,
                         icon: task.isFavorite == false
                             ? const Icon(Icons.bookmark_add_outlined)
                             : const Icon(Icons.bookmark_remove),
                         label: task.isFavorite == false
                             ? const Text('Add to Bookmarks')
-                            : const Text('Remove from Bookmarks'),
+                            : const Text('Remove from\nBookmarks'),
                       ),
                       onTap: () {
                         likerOrDislike();
@@ -48,7 +42,7 @@ class TaskPopupMenu extends StatelessWidget {
                         label: const Text('Delete'),
                       ),
                       onTap: () {
-                        cancelOrDeleteCallback();
+                        cancelOrDelete();
                       },
                     ),
                   ]
@@ -60,7 +54,7 @@ class TaskPopupMenu extends StatelessWidget {
                         label: const Text('Delete'),
                       ),
                       onTap: () {
-                        cancelOrDeleteCallback();
+                        cancelOrDelete();
                       },
                     ),
                   ]
@@ -71,7 +65,9 @@ class TaskPopupMenu extends StatelessWidget {
                     icon: const Icon(Icons.restore_from_trash),
                     label: const Text('Restore'),
                   ),
-                  onTap: () {},
+                  onTap: () {
+                    restoreTask();
+                  },
                 ),
                 PopupMenuItem(
                   child: TextButton.icon(
@@ -80,7 +76,7 @@ class TaskPopupMenu extends StatelessWidget {
                     label: const Text('Delete Forever'),
                   ),
                   onTap: () {
-                    cancelOrDeleteCallback();
+                    cancelOrDelete();
                   },
                 ),
               ],

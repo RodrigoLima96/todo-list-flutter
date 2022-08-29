@@ -68,11 +68,12 @@ class TaskTile extends StatelessWidget {
               ),
               TaskPopupMenu(
                 task: task,
-                cancelOrDeleteCallback: () =>
-                    _removedOrDeleteTask(context, task),
+                cancelOrDelete: () => _removedOrDeleteTask(context, task),
                 likerOrDislike: () => context
                     .read<TasksBloc>()
                     .add(MarkFavoriteOrUnfavoriteTask(task: task)),
+                restoreTask: () =>
+                    context.read<TasksBloc>().add(RestoreTask(task: task)),
               ),
             ],
           ),
